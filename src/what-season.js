@@ -13,9 +13,7 @@ const { NotImplementedError } = require('../extensions/index.js');
  */
 function getSeason(date) {
 
-  if (this == false) {
-    throw new Error("Invalid date!")
-  }
+
   if (date instanceof Date === false) {
     throw new Error("Invalid date!")
   }
