@@ -13,9 +13,38 @@ const { NotImplementedError } = require('../extensions/index.js');
  * transform([1, 2, 3, '--discard-prev', 4, 5]) => [1, 2, 4, 5]
  * 
  */
-function transform(/* arr */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+function transform(array) {
+  if (Array.isArray(array) === false) {
+    throw new Error("'arr' parameter must be an instance of the Array!")
+  }
+  if (array.includes(typeof "object")) {
+    return []
+  }
+
+  let mas = Array.from(array);
+  for (i in array) {
+    if (array[i] == "--discard-next") {
+      mas.splice(+i, 2, NaN, NaN);
+    }
+    if (array[i] == "--discard-prev") {
+      if (i == 0) {
+        mas.splice(i, 1, NaN);
+        continue
+      }
+      mas.splice(i - 1, 2, NaN, NaN);
+    }
+    if (array[i] == "--double-next") {
+      mas.splice((+i), 1, Number.parseInt(mas[+i + 1]));
+    }
+    if (array[i] == "--double-prev") {
+      mas.splice((+i), 1, Number.parseInt(mas[+i - 1]));
+    }
+    console.log(mas)
+
+
+  }
+  return mas.filter((value) => Number.isNaN(value) === false)
+
 }
 
 module.exports = {
