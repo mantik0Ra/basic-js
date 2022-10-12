@@ -22,13 +22,8 @@ class DepthCalculator {
         count++
         return this.calculateDepth(arr, count);
       }
-
-
     }
     return count
-
-
-
   }
 
 }
