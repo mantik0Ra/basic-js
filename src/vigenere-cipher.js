@@ -20,13 +20,55 @@ const { NotImplementedError } = require('../extensions/index.js');
  * 
  */
 class VigenereCipheringMachine {
-  encrypt() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  constructor(reverse = true) {
+    this.reverse = reverse;
   }
-  decrypt() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+
+  encrypt(string, codeString) {
+    if (string == undefined || codeString == undefined) {
+      throw new Error("Incorrect arguments!");
+    }
+    let mas = [];
+    console.log(this.reverse)
+    codeString = codeString.toLowerCase().repeat(100);
+    string = string.toLowerCase();
+    let j = 0;
+    for (let i = 0; i < string.length; i++) {
+      if (string[i] == " ") {
+        mas.push(" ")
+        continue
+      }
+      if (string[i].charCodeAt() < 97 || string[i].charCodeAt() > 122) {
+        mas.push(string[i])
+        continue
+      }
+      mas.push(String.fromCharCode(((string[i].charCodeAt() - 97) + (codeString[j].charCodeAt()) - 97) % 26 + 97))
+      j++
+    }
+    return this.reverse === true ? mas.join("").toUpperCase() : mas.reverse().join("").toUpperCase()
+  }
+  decrypt(string, codeString) {
+    if (string == undefined || codeString == undefined) {
+      throw new Error("Incorrect arguments!");
+    }
+    let mas = [];
+    console.log(this.reverse)
+    codeString = codeString.toLowerCase().repeat(100);
+    string = string.toLowerCase();
+    let j = 0;
+    for (let i = 0; i < string.length; i++) {
+      if (string[i] == " ") {
+        mas.push(" ")
+        continue
+      }
+      if (string[i].charCodeAt() < 97 || string[i].charCodeAt() > 122) {
+        mas.push(string[i])
+        continue
+      }
+      mas.push(String.fromCharCode(((string[i].charCodeAt() - 97) - (codeString[j].charCodeAt() - 97) + 26) % 26 + 97))
+      j++
+    }
+    return this.reverse === true ? mas.join("").toUpperCase() : mas.reverse().join("").toUpperCase()
   }
 }
 
