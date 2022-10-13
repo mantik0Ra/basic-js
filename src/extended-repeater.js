@@ -16,22 +16,23 @@ const { NotImplementedError } = require('../extensions/index.js');
  *
  */
 function repeater(str, { repeatTimes = 1, separator = "+", addition = "", additionRepeatTimes = 0, additionSeparator = "|" }) {
+  let addition2 = String(addition);
   let mas = [];
-  if (addition == "") {
-    addSeparator = ""
+  if (addition2 == "") {
+    additionSeparator = ""
   }
   if (repeatTimes == 1) {
     separator = ""
   }
   if (additionRepeatTimes > 1) {
-    addition = (`${addition}` + `${additionSeparator}`).repeat(additionRepeatTimes);
-    console.log(addition)
+    addition2 = (`${addition}` + `${additionSeparator}`).repeat(+additionRepeatTimes - 1);
+    addition2 = addition2 + `${addition}`
   }
   for (let i = 0; i < repeatTimes; i++) {
     if (i + 1 == repeatTimes) {
       separator = ""
     }
-    mas.push(str + addition + separator);
+    mas.push(str + addition2 + separator);
   }
 
   return mas.join("")
