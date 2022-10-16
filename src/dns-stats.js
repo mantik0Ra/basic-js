@@ -27,17 +27,18 @@ function getDNSStats(array) {
   for (i in array) {
     let mas = array[i].split(".").reverse();
     for (elem in mas) {
-      let key = "." + mas.slice(0, elem + 1).join(".")
+      let key = "." + mas.slice(0, +elem + 1).join(".")
+      console.log(key)
       if (map.has(key)) {
         let value = +(map.get(key)) + 1
         map.set(key, value)
       } else {
         map.set(key, 1)
       }
-
     }
   }
-  return map
+  return Object.fromEntries(map)
+
 }
 
 module.exports = {
